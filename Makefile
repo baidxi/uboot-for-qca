@@ -54,7 +54,7 @@ export SUB_MAKE_CMD = $(MAKE) --silent --no-print-directory \
 # export PATH:=$(TOOLCHAIN_DIR)/bin:$(PATH)
 
 ifndef CROSS_COMPILE
-  CROSS_COMPILE = mips-openwrt-linux-musl-
+  CROSS_COMPILE = /opt/disk2/juno/buildroot-2019.02.2/output/host/bin/mips-linux-
 endif
 export CROSS_COMPILE
 
@@ -169,11 +169,12 @@ endef
 
 # $(1): size limit in KB
 # $(2): if set to 1, use LZMA
-# $(3): other parameters passed to subdir make
+# $(3) $(4): other parameters passed to subdir make
 define build
   args="IMG_SIZE=$$((1024*$(call img_size,$(1)))) \
         IMG_LZMA=$(strip $(call is_lzma,$(2))) \
-        $(strip $(3))"; \
+        $(strip $(3)) \
+		$(strip $(4))"; \
   cd $(SOURCE_DIR) && \
      $(SUB_MAKE_CMD) $@ $$args && \
      $(SUB_MAKE_CMD) all $$args
@@ -266,6 +267,9 @@ d-link_dir-505:
 
 dragino_v2_ms14:
 	@$(call build,192,1,DEVICE_VENDOR=dragino)
+
+mini_v2:
+	@$(call build,128,1,DEVICE_VENDOR=iyunlink,ETH_CONFIG=_s27)
 
 engenius_ens202ext \
 p2w_cpe505n \

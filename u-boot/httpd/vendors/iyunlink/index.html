@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Firmware update</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="shortcut icon" href="f.png">
+	</head>
+	<body>
+		<div id="h"><img src="l.png"></div>
+		<div id="m">
+			<h1>Firmware update</h1>
+			<h1>固件升级</h1>
+			<p>You are going to upload new firmware to the device.<br>Choose a proper file from your local hard drive and click <strong>"Update firmware"</strong> button.<br>Please, do not power off the device during update, if everything goes well, the device will restart.</p>
+			<p>将你的新固件上传到设备。<br>从本地硬盘驱动器中选择适当的文件，然后单击<strong>"升级固件"</strong> 按钮.<br>请不要在更新期间关闭设备电源，如果一切顺利的话，该设备将重新启动。</p>
+			<form method="post" enctype="multipart/form-data">
+				<input type="file" name="firmware"><input type="submit" value="Update firmware">
+			</form>
+			<div class="i w">
+				<strong>WARNINGS</strong>
+				<strong>警告！！！</strong>
+				<ul>
+					<li>do not power off the device during update</li>
+					<li>if everything goes well, the device will restart</li>
+					<li>you can upload whatever you want, so be sure that you choose proper  firmware for your device</li>
+					<li><a href="art.html">update ART</a>&nbsp&nbsp&nbsp<a href="uboot.html">update uboot</a></li>
+				</ul>
+				<ul>
+					<li>更新期间请勿关闭设备电源</li>
+					<li>如果一切顺利，设备将重新启动</li>
+					<li>你可以上传任何你想要的东西，所以一定要为你的设备选择合适的固件</li>
+					<li><a href="art.html">升级ART</a>&nbsp&nbsp&nbsp<a href="uboot.html">升级uboot</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="f">You can find more information about this project on <a href="https://github.com/pepe2k/u-boot_mod" target="_blank">GitHub</a></div>
+	</body>
+</html>

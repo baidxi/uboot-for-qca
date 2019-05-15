@@ -744,6 +744,15 @@ zbtlink_zbt-we1526: qca953x_common
 	@$(call define_add,CFG_ATH_GMAC_NMACS,2)
 	@$(MKCONFIG) -a ap143 mips mips ap143 ar7240 ar7240
 
+mini_v2: qca953x_common
+	@$(call config_init,Iyunlink MINI_V2,iyunlink-mini-v2,16,17,1,QCA_QCA953X_SOC)
+	@$(call define_add,CONFIG_FOR_MINI_V2,1)
+	@$(call define_add,CFG_ATHRS27_PHY,1)
+	@$(call define_add,CFG_ATH_GMAC_NMACS,2)
+	@$(call define_add,CONFIG_USB,1)
+	@$(call define_add,CONFIG_PCI,1)
+	@$(MKCONFIG) -a ap143 mips mips ap143 ar7240 ar7240
+
 # =============
 # CLEAN TARGETS
 # =============

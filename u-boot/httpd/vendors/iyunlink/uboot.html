@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>U-Boot update</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div id="m">
+			<h1>U-BOOT UPDATE</h1>
+			<h1>更新U-BOOT</h1>
+			<p>You are going to update <strong>U-Boot bootloader</strong> on the device.<br>Please, choose file from your local hard drive and click <strong>Update U-Boot</strong> button.</p>
+			<p>将你的新固件上传到设备。<br>从本地硬盘驱动器中选择适当的文件，然后单击<strong>"升级U-BOOT"</strong> 按钮.<br>请不要在更新期间关闭设备电源，如果一切顺利的话，该设备将重新启动。</p>
+			<form method="post" enctype="multipart/form-data"><input type="file" name="uboot"><input type="submit" value="Update U-Boot"></form>
+			<div class="i w">
+				<strong>WARNINGS</strong>
+				<ul>
+					<li>do not power off the device during update</li>
+					<li>if everything goes well, the device will restart</li>
+					<li>you can upload whatever you want, so be sure that you choose proper U-Boot image for your device</li>
+					<li>updating U-Boot is a very dangerous operation and may damage your device!</li>
+					<li><a href="index.html">update firmware</a>&nbsp&nbsp&nbsp<a href="art.html">update art</a></li>
+				</ul>
+				<ul>
+					<li>更新期间请勿关闭设备电源</li>
+					<li>如果一切顺利，设备将重新启动</li>
+					<li>你可以上传任何你想要的东西，所以一定要为你的设备选择合适的U-BOOT</li>
+					<li>非专业人士请误更新U-BOOT，U-BOOT不正确将导致设备无法启动</li>
+					<li><a href="index.html">升级固件</a>&nbsp&nbsp&nbsp<a href="art.html">升级ART</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="f">You can find more information about this project on <a href="https://github.com/pepe2k/u-boot_mod" target="_blank">GitHub</a></div>
+	</body>
+</html>
