@@ -54,7 +54,7 @@ export SUB_MAKE_CMD = $(MAKE) --silent --no-print-directory \
 # export PATH:=$(TOOLCHAIN_DIR)/bin:$(PATH)
 
 ifndef CROSS_COMPILE
-  CROSS_COMPILE = /opt/disk2/juno/buildroot-2019.02.2/output/host/bin/mips-linux-
+  CROSS_COMPILE = /opt/disk2/juno/buildroot/output/host/bin/mips-linux-
 endif
 export CROSS_COMPILE
 

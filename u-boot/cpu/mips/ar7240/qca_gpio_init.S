@@ -50,7 +50,10 @@
 /* Sanity check for GPIO driven LEDs */
 #if !defined(CONFIG_QCA_GPIO_MASK_OUT) &&\
     (defined(CONFIG_QCA_GPIO_MASK_LED_ACT_H) ||\
-     defined(CONFIG_QCA_GPIO_MASK_LED_ACT_L))
+     defined(CONFIG_QCA_GPIO_MASK_LED_ACT_L) || \
+	 defined(CONFIG_QCA_GPIO_MASK_WDT_ACT_L) ||\
+	 defined(CONFIG_QCA_GPIO_MASK_WDT_ACT_H) ||\
+	 defined(CONFIG_QCA_GPIO_MASK_LTE))
 	#error "GPIOs for LEDs must be included in CONFIG_QCA_GPIO_MASK_OUT!"
 #endif
 
@@ -170,6 +173,17 @@ lowlevel_gpio_init:
 			#define _QCA_GPIO_MASK_LED_ACT_L	\
 				CONFIG_QCA_GPIO_MASK_LED_ACT_L
 		#endif
+
+		#if defined(CONFIG_QCA_GPIO_MASK_WDT_ACT_H)
+			#define _QCA_GPIO_MASK_WDT_ACT_H	\
+				CONFIG_QCA_GPIO_MASK_WDT_ACT_H
+		#endif
+
+		#if defined(CONFIG_QCA_GPIO_MASK_WDT_ACT_L)
+			#define _QCA_GPIO_MASK_WDT_ACT_L	\
+				CONFIG_QCA_GPIO_MASK_WDT_ACT_L
+		#endif
+
 	#endif
 
 	/*
@@ -555,6 +569,17 @@ lowlevel_gpio_init:
 			#define _QCA_GPIO_MASK_LED_ACT_L	\
 				(CONFIG_QCA_GPIO_MASK_LED_ACT_L & ~QCA_GPIO_JTAG_MASK)
 		#endif
+
+		#if defined(CONFIG_QCA_GPIO_MASK_WDT_ACT_H)
+			#define _QCA_GPIO_MASK_WDT_ACT_H	\
+				(CONFIG_QCA_GPIO_MASK_WDT_ACT_H & ~QCA_GPIO_JTAG_MASK)
+		#endif
+
+		#if defined(CONFIG_QCA_GPIO_MASK_WDT_ACT_L)
+			#define _QCA_GPIO_MASK_WDT_ACT_L	\
+				(CONFIG_QCA_GPIO_MASK_WDT_ACT_L & ~QCA_GPIO_JTAG_MASK)
+		#endif
+
 	#else
 		#if defined(CONFIG_QCA_GPIO_MASK_IN)
 			#define _GPIO_MASK_IN	CONFIG_QCA_GPIO_MASK_IN
@@ -583,6 +608,16 @@ lowlevel_gpio_init:
 			#define _QCA_GPIO_MASK_LED_ACT_L	\
 				CONFIG_QCA_GPIO_MASK_LED_ACT_L
 		#endif
+		#if defined(CONFIG_QCA_GPIO_MASK_WDT_ACT_H)
+			#define _QCA_GPIO_MASK_WDT_ACT_H	\
+				CONFIG_QCA_GPIO_MASK_WDT_ACT_H
+		#endif
+
+		#if defined(CONFIG_QCA_GPIO_MASK_WDT_ACT_L)
+			#define _QCA_GPIO_MASK_WDT_ACT_L	\
+				CONFIG_QCA_GPIO_MASK_WDT_ACT_L
+		#endif
+
 	#endif
 
 	/*
@@ -783,6 +818,58 @@ loop_start:
 	nop
 
 .end lowlevel_gpio_init
+
+.globl watchdog_on
+.type  watchdog_on, @function
+.align 4
+.text
+.ent watchdog_on
+
+watchdog_on:
+#if defined(_QCA_GPIO_MASK_WDT_ACT_H) || defined(_QCA_GPIO_MASK_WDT_ACT_L)
+	li  t8, QCA_GPIO_OUT_REG
+	lw  t9, 0(t8)
+	#if defined(_QCA_GPIO_MASK_WDT_ACT_H)
+	or  t9, t9, _QCA_GPIO_MASK_WDT_ACT_H
+	#endif
+	#if defined(_QCA_GPIO_MASK_WDT_ACT_L)
+	and t9, t9, ~(_QCA_GPIO_MASK_WDT_ACT_L)
+	#endif
+	sw  t9, 0(t8)
+#else
+	nop
+#endif
+
+	jr	ra
+	nop
+
+.end watchdog_on
+
+.globl watchdog_off
+.type  watchdog_off, @function
+.align 4
+.text
+.ent watchdog_off
+
+watchdog_off:
+#if defined(_QCA_GPIO_MASK_WDT_ACT_H) || defined(_QCA_GPIO_MASK_WDT_ACT_L)
+	li  t8, QCA_GPIO_OUT_REG
+	lw  t9, 0(t8)
+	#if defined(_QCA_GPIO_MASK_WDT_ACT_H)
+	and t9, t9, ~(_QCA_GPIO_MASK_WDT_ACT_H)
+	#endif
+	#if defined(_QCA_GPIO_MASK_WDT_ACT_L)
+	or t9, t9, _QCA_GPIO_MASK_WDT_ACT_L
+	#endif
+	sw  t9, 0(t8)
+#else
+	nop
+#endif
+
+	jr	ra
+	nop
+
+.end watchdog_off
 
 /*
  * Set all predefined GPIO driven LEDs ON

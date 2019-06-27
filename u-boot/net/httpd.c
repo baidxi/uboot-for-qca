@@ -141,7 +141,6 @@ int do_http_progress(const int state){
 				all_led_on();
 				milisecdelay(25);
 				all_led_off();
-				milisecdelay(25);
 			}
 
 			printf("HTTP server is ready!\n\n");
@@ -167,7 +166,6 @@ int do_http_progress(const int state){
 				all_led_on();
 				milisecdelay(25);
 				all_led_off();
-				milisecdelay(25);
 			}
 
 			// wait 1 sec

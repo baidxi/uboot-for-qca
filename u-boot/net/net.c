@@ -1545,16 +1545,18 @@ int NetLoopHttpd(void){
 
 	// infinite loop
 	for(;;){
-		if (cnt == led_off)
+		if (cnt == led_off){
 			all_led_off();
-		else if (cnt == 0)
+		}else if (cnt == 0){
 			all_led_on();
+			watchdog_off();
+		}
 
 		cnt++;
 
 		if (cnt == 1024) {
+			watchdog_on();
 			cnt = 0;
-
 			if (cnt_up) {
 				led_off++;
 

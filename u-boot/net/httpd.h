@@ -9,5 +9,7 @@ extern int do_http_upgrade(const ulong size, const int upgrade_type);
 extern int do_http_progress(const int state);
 extern void all_led_on(void);
 extern void all_led_off(void);
+extern void watchdog_on(void);
+extern void watchdog_off(void);
 
 #endif

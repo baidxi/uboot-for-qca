@@ -169,6 +169,8 @@ int      timer_init(void);
 void     usb_init(void);
 void     full_reset(void);
 void     all_led_on(void);
+void	 watchdog_on(void);
+void	 watchdog_off(void);
 void     all_led_off(void);
 void     print_size(ulong, const char *);
 void     print_board_info(void);

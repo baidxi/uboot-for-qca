@@ -156,8 +156,12 @@ int serial_getc(void)
 {
 	u32 uart_data;
 
-	while (!serial_tstc())
-		;
+	while (!serial_tstc()){
+		watchdog_on();
+		milisecdelay(25);
+		watchdog_off();
+		milisecdelay(25);
+	}
 
 	uart_data = qca_soc_reg_read(QCA_HSUART_DATA_REG);
 

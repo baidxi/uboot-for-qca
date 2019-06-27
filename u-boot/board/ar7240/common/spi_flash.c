@@ -46,6 +46,7 @@ static u32 flash_info_find(flash_info_t *info, u32 jedec_id)
  */
 u32 flash_init(void)
 {
+	watchdog_on();
 	u32 bank, i, jedec_id, sfdp_size, sfdp_ss;
 	u32 total_size = 0;
 	flash_info_t *info;
@@ -123,6 +124,7 @@ u32 flash_init(void)
 		total_size += flash_info[bank].size;
 	}
 
+	watchdog_off();
 	return total_size;
 }
 
@@ -142,6 +144,8 @@ u32 flash_erase(flash_info_t *info,
 
 	j = 0;
 	for (i = s_first; i <= s_last; i++) {
+		watchdog_on();
+		udelay(200);
 		qca_sf_sect_erase(info->bank, i * info->sector_size,
 						  info->sector_size, info->erase_cmd);
 
@@ -150,8 +154,9 @@ u32 flash_erase(flash_info_t *info,
 			j = 0;
 		}
 		puts("#");
-
 		j++;
+		watchdog_off();
+		udelay(200);
 	}
 
 	printf("\n\n");
@@ -175,6 +180,7 @@ u32 write_buff(flash_info_t *info, uchar *source, ulong addr, ulong len)
 	addr = addr - CFG_FLASH_BASE;
 
 	while (total < len) {
+		watchdog_on();
 		src = source + total;
 		dst = addr + total;
 		bytes_this_page = info->page_size - (addr % info->page_size);
@@ -183,6 +189,8 @@ u32 write_buff(flash_info_t *info, uchar *source, ulong addr, ulong len)
 		qca_sf_write_page(info->bank, dst, len_this_lp, src);
 
 		total += len_this_lp;
+		watchdog_off();
+		udelay(50);
 	}
 
 	puts("\n");

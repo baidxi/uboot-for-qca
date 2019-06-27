@@ -119,10 +119,12 @@ static int load_block(unsigned block, uchar *dst, unsigned len)
 /* Show download/upload progress */
 static void show_progress(const ulong TftpBlock)
 {
+	watchdog_on();
 	if (((TftpBlock - 1) % 10) == 0)
 		putc('#');
 	else if ((TftpBlock % (10 * HASHES_PER_LINE)) == 0)
 		puts("\n              ");
+	watchdog_off();
 }
 
 static void show_success(void)

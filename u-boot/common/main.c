@@ -357,7 +357,6 @@ int readline(const char * const prompt)
 
 	for (;;) {
 		c = getc();
-
 		/* Special character handling */
 		switch (c) {
 		/* Enter */

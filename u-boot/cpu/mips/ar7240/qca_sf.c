@@ -139,7 +139,6 @@ u32 qca_sf_sect_erase(u32 bank, u32 address, u32 sect_size, u8 erase_cmd)
 	qca_sf_shift_out(data_out, 32, 1);
 	qca_sf_busy_wait();
 	qca_sf_spi_di();
-
 	return 0;
 }
 

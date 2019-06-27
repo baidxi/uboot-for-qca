@@ -82,8 +82,12 @@ void serial_putc(const char c)
 
 int serial_getc(void)
 {
-	while (!serial_tstc())
-		;
+	while (!serial_tstc()){
+		watchdog_on();
+		milisecdelay(25);
+		watchdog_off();
+		milisecdelay(25);
+	}
 
 	/* Get data from RBR */
 	return qca_soc_reg_read(QCA_LSUART_RBR_REG)

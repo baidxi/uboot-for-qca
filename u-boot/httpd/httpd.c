@@ -32,6 +32,8 @@ extern const struct fsdata_file file_index_html;
 extern const struct fsdata_file file_404_html;
 extern const struct fsdata_file file_flashing_html;
 extern const struct fsdata_file file_fail_html;
+extern void	watchdog_off(void);
+extern void watchdog_on(void);
 
 extern int webfailsafe_ready_for_upgrade;
 extern int webfailsafe_upgrade_type;
@@ -68,6 +70,7 @@ static int atoi(const char *s){
 
 // print downloading progress
 static void httpd_download_progress(void){
+	watchdog_on();
 	if(post_packet_counter == 39){
 		puts("\n         ");
 		post_packet_counter = 0;
@@ -75,6 +78,7 @@ static void httpd_download_progress(void){
 
 	puts("#");
 	post_packet_counter++;
+	watchdog_off();
 }
 
 // http server init
