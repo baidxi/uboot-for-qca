@@ -46,7 +46,6 @@ static u32 flash_info_find(flash_info_t *info, u32 jedec_id)
  */
 u32 flash_init(void)
 {
-	watchdog_on();
 	u32 bank, i, jedec_id, sfdp_size, sfdp_ss;
 	u32 total_size = 0;
 	flash_info_t *info;
@@ -124,7 +123,6 @@ u32 flash_init(void)
 		total_size += flash_info[bank].size;
 	}
 
-	watchdog_off();
 	return total_size;
 }
 
@@ -140,22 +138,16 @@ u32 flash_erase(flash_info_t *info,
 {
 	u32 i, j;
 
-	printf("Erasing: ");
+	printf("Erasing:    ");
 
 	j = 0;
 	for (i = s_first; i <= s_last; i++) {
-		watchdog_on();
 		udelay(200);
 		qca_sf_sect_erase(info->bank, i * info->sector_size,
 						  info->sector_size, info->erase_cmd);
 
-		if (j == 39) {
-			puts("\n         ");
-			j = 0;
-		}
-		puts("#");
+		printf("\b\b\b\b%4d",j);
 		j++;
-		watchdog_off();
 		udelay(200);
 	}
 
@@ -173,23 +165,24 @@ u32 flash_erase(flash_info_t *info,
 u32 write_buff(flash_info_t *info, uchar *source, ulong addr, ulong len)
 {
 	u32 total = 0, len_this_lp, bytes_this_page;
-	u32 dst;
+	u32 dst,j;
 	u8 *src;
 
 	printf("Writing at address: 0x%08lX\n", addr);
 	addr = addr - CFG_FLASH_BASE;
-
+	printf("Writing:    ");
+	j = 0;
 	while (total < len) {
-		watchdog_on();
 		src = source + total;
 		dst = addr + total;
 		bytes_this_page = info->page_size - (addr % info->page_size);
 		len_this_lp = ((len - total) > bytes_this_page) ? bytes_this_page : (len - total);
-
 		qca_sf_write_page(info->bank, dst, len_this_lp, src);
-
+		if ((total % 1000) == 0) {
+			j++;
+			printf("\b\b\b\b%4d",j);
+		}
 		total += len_this_lp;
-		watchdog_off();
 		udelay(50);
 	}
 

@@ -51,6 +51,10 @@ const spi_nor_ids_info_t spi_nor_ids[] = {
 	{ "S25FL127S", 0x012018, SIZE_16MiB, SIZE_64KiB, 256, SPI_FLASH_CMD_ES_64KB },
 	{ "W25Q128",   0xEF4018, SIZE_16MiB, SIZE_64KiB, 256, SPI_FLASH_CMD_ES_64KB },
 	{ "W25Q128FW", 0xEF6018, SIZE_16MiB, SIZE_64KiB, 256, SPI_FLASH_CMD_ES_64KB },
+	/* 32 MiB */
+#ifndef NO_4B_ADDRESS_SUPPORT
+	{ "W25Q256FV", 0xEF4019, SIZE_32MiB, SIZE_64KiB, 512, SPI_FLASH_CMD_ES_64KB },
+#endif
 };
 
 const u32 spi_nor_ids_count = sizeof(spi_nor_ids) / sizeof(spi_nor_ids_info_t);

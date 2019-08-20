@@ -32,9 +32,6 @@ extern const struct fsdata_file file_index_html;
 extern const struct fsdata_file file_404_html;
 extern const struct fsdata_file file_flashing_html;
 extern const struct fsdata_file file_fail_html;
-extern void	watchdog_off(void);
-extern void watchdog_on(void);
-
 extern int webfailsafe_ready_for_upgrade;
 extern int webfailsafe_upgrade_type;
 extern ulong NetBootFileXferSize;

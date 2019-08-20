@@ -140,6 +140,8 @@ void serial_putc(const char c)
 	if (c == '\n')
 		serial_putc('\r');
 
+	watchdog_on();
+
 	/* Wait for FIFO */
 	do {
 		uart_data = qca_soc_reg_read(QCA_HSUART_DATA_REG);
@@ -148,7 +150,7 @@ void serial_putc(const char c)
 
 	/* Put data in buffer and set CSR bit */
 	uart_data  = (u32)c | (1 << QCA_HSUART_DATA_TX_CSR_SHIFT);
-
+	watchdog_off();
 	qca_soc_reg_write(QCA_HSUART_DATA_REG, uart_data);
 }
 
@@ -158,9 +160,9 @@ int serial_getc(void)
 
 	while (!serial_tstc()){
 		watchdog_on();
-		milisecdelay(25);
+		milisecdelay(20);
 		watchdog_off();
-		milisecdelay(25);
+		milisecdelay(20);
 	}
 
 	uart_data = qca_soc_reg_read(QCA_HSUART_DATA_REG);

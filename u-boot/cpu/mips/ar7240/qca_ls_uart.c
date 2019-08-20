@@ -66,6 +66,7 @@ int serial_init(void)
 void serial_putc(const char c)
 {
 	u32 line_status;
+	watchdog_on();
 
 	if (c == '\n')
 		serial_putc('\r');
@@ -76,6 +77,7 @@ void serial_putc(const char c)
 					  & QCA_LSUART_LSR_THRE_MASK;
 	} while (line_status == 0);
 
+	watchdog_off();
 	/* Put data in THR */
 	qca_soc_reg_write(QCA_LSUART_THR_REG, (u32)c);
 }
@@ -84,9 +86,9 @@ int serial_getc(void)
 {
 	while (!serial_tstc()){
 		watchdog_on();
-		milisecdelay(25);
+		milisecdelay(20);
 		watchdog_off();
-		milisecdelay(25);
+		milisecdelay(20);
 	}
 
 	/* Get data from RBR */
@@ -103,6 +105,9 @@ int serial_tstc(void)
 
 void serial_puts(const char *s)
 {
-	while (*s)
+	while (*s){
+		watchdog_on();
 		serial_putc(*s++);
+		watchdog_off();
+	}
 }

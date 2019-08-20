@@ -527,7 +527,7 @@ int do_bootm(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 			return 1;
 		}
 
-		puts("OK!\n");
+		printf("OK!\n");
 		break;
 	default:
 		printf_err("unsupported compression type '%s'!\n",
@@ -540,6 +540,9 @@ int do_bootm(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 	fixup_silent_linux();
 #endif
 
+	watchdog_on();
+	milisecdelay(50);
+	watchdog_off();
 	do_bootm_linux(cmdtp, flag, argc, argv);
 
 	return 1;
