@@ -271,6 +271,9 @@ dragino_v2_ms14:
 mini_v2:
 	@$(call build,128,1,DEVICE_VENDOR=iyunlink,ETH_CONFIG=_s27)
 
+9531_v2:
+	@$(call build,128,1,DEVICE_VENDOR=iyunlink,ETH_CONFIG=_s27)
+
 engenius_ens202ext \
 p2w_cpe505n \
 p2w_r602n \

@@ -1,38 +1,191 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Firmware update</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="shortcut icon" href="f.png">
-	</head>
-	<body>
-		<div id="h"><img src="l.png"></div>
-		<div id="m">
-			<h1>Firmware update</h1>
-			<h1>固件升级</h1>
-			<p>You are going to upload new firmware to the device.<br>Choose a proper file from your local hard drive and click <strong>"Update firmware"</strong> button.<br>Please, do not power off the device during update, if everything goes well, the device will restart.</p>
-			<p>将你的新固件上传到设备。<br>从本地硬盘驱动器中选择适当的文件，然后单击<strong>"升级固件"</strong> 按钮.<br>请不要在更新期间关闭设备电源，如果一切顺利的话，该设备将重新启动。</p>
-			<form method="post" enctype="multipart/form-data">
-				<input type="file" name="firmware"><input type="submit" value="Update firmware">
-			</form>
-			<div class="i w">
-				<strong>WARNINGS</strong>
-				<strong>警告！！！</strong>
-				<ul>
-					<li>do not power off the device during update</li>
-					<li>if everything goes well, the device will restart</li>
-					<li>you can upload whatever you want, so be sure that you choose proper  firmware for your device</li>
-					<li><a href="art.html">update ART</a>&nbsp&nbsp&nbsp<a href="uboot.html">update uboot</a></li>
-				</ul>
-				<ul>
-					<li>更新期间请勿关闭设备电源</li>
-					<li>如果一切顺利，设备将重新启动</li>
-					<li>你可以上传任何你想要的东西，所以一定要为你的设备选择合适的固件</li>
-					<li><a href="art.html">升级ART</a>&nbsp&nbsp&nbsp<a href="uboot.html">升级uboot</a></li>
-				</ul>
-			</div>
-		</div>
-		<div id="f">You can find more information about this project on <a href="https://github.com/pepe2k/u-boot_mod" target="_blank">GitHub</a></div>
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<title>固件升级</title>
+
+<style type="text/css">
+body,div,ul,li{
+ margin:0 auto;
+ padding:0;
+}
+body{
+ font:20px "宋体";
+ text-align:center;
+}
+a:link{
+ color:#00F;
+ text-decoration:none;
+}
+a:visited {
+ color: #00F;
+ text-decoration:none;
+}
+a:hover {
+ color: #c00;
+ text-decoration:underline;
+}
+ul{
+ list-style:none;
+}
+.main{
+ clear:both;
+ padding:8px;
+ text-align:center;
+}
+/*第一种形式*/
+#tabs0 {
+ height: 600px;
+ width: 800px;
+ border: 1px solid #cbcbcb;
+ background-color: #f2f6fb;
+}
+.menu0{
+ width: 600px;
+}
+.menu0 li{
+ display:block;
+ float: left;
+ padding: 10px 0;
+ width:150px;
+ text-align: center;
+ cursor:pointer;
+ background: #FFFFff;
+}
+.menu0 li.hover{
+ background: #f2f6fb;
+}
+#main0 ul{
+ display: none;
+}
+#main0 ul.block{
+ display: block;
+}
+
+</style>
+<script>
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+
+</script>
+</head>
+<body>
+<div style="padding: 30px 0"><img src="l.png"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">路由信息</li>
+  <li onclick="setTab(0,1)">固件</li>
+  <li onclick="setTab(0,2)">art</li>
+  <li onclick="setTab(0,3)">uboot</li>
+ </ul>
+ <div class="main" id="main0">
+  <ul class="block"><li>
+  	<table align="center" width="90%">
+  		<tr align="right"><th>路由器信息</th></tr>
+  		<tr align="left">
+  			<td>CPU</td>
+  			<td>CPU信息</td>
+  		</tr>
+  		<tr align="left">
+  			<td>内存</td>
+  			<td>内存信息</td>
+  		</tr>
+  		<tr align="left">
+  			<td>FLASH</td>
+  			<td>flash信息</td>
+  		</tr>
+  	</table>
+  </li></ul>
+  <ul><li>
+  	<table align="center" width="90%">
+  		<tr>
+  			<th><strong>警告!!!</strong></th>
+  		</tr>
+  		<tr>
+  			<td align="left">更新期间请勿关闭设备电源</td>
+  		</tr>
+  		<tr>
+  			<td align="left">如果一切顺利，设备将重新启动</td>
+  		</tr>
+  		<tr>
+  			<td align="left">你可以上传任何你想要的东西，所以一定要为你的设备选择合适的固件</td>
+  		</tr>
+  		<tr>
+  			<td><p> </p></td>
+  		</tr>
+  		<tr>
+  			<td>
+  				<form method="post" enctype="multipart/form-data">
+  					<input type="file" name="firmware"><input type="submit" value="Update firmware">
+  				</form>
+  			</td>
+  		</tr>
+  	</table>
+  </li></ul>
+  <ul><li>
+  	<table align="center" width="90%">
+  		<tr>
+  			<th><strong>警告!!!</strong></th>
+  		</tr>
+  		<tr>
+  			<td align="left">更新期间请勿关闭设备电源</td>
+  		</tr>
+  		<tr>
+  			<td align="left">如果一切顺利，设备将重新启动</td>
+  		</tr>
+  		<tr>
+  			<td align="left">非专业人士请误更新ART，ART丢失或不匹配将导致无线不正常或无法使用</td>
+  		</tr>
+  		<tr>
+  			<td><p> </p></td>
+  		</tr>
+  		<tr>
+  			<td>
+  				<form method="post" enctype="multipart/form-data">
+  					<input type="file" name="art"><input type="submit" value="Update art">
+  				</form>
+  			</td>
+  		</tr>
+  	</table>
+  </li></ul>
+  <ul><li>
+  	<table align="center" width="90%">
+  		<tr>
+  			<th><strong>警告!!!</strong></th>
+  		</tr>
+  		<tr>
+  			<td align="left">更新期间请勿关闭设备电源</td>
+  		</tr>
+  		<tr>
+  			<td align="left">如果一切顺利，设备将重新启动</td>
+  		</tr>
+  		<tr>
+  			<td align="left">非专业人士请误更新U-BOOT，U-BOOT不正确将导致设备无法启动</td>
+  		</tr>
+  		<tr>
+  			<td><p> </p></td>
+  		</tr>
+  		<tr>
+  			<td>
+  				<form method="post" enctype="multipart/form-data">
+  					<input type="file" name="uboot"><input type="submit" value="Update uboot">
+  				</form>
+  			</td>
+  		</tr>
+  	</table>
+  </li></ul>
+ </div>
+</div>
+<div id="f">You can find more information about this project on <a href="https://github.com/pepe2k/u-boot_mod" target="_blank">GitHub</a></div>
+</body>
 </html>
